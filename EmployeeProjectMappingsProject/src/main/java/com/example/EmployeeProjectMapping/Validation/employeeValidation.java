@@ -1,0 +1,44 @@
+package com.example.EmployeeProjectMapping.Validation;
+
+import com.example.EmployeeProjectMapping.Model.AdminModel;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+
+
+import com.example.EmployeeProjectMapping.Model.AdminModel;
+import com.example.EmployeeProjectMapping.Model.EmployeeModel;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.executable.ExecutableValidator;
+import jakarta.validation.metadata.BeanDescriptor;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+//import org.springframework.validation.Validator;
+
+import java.util.Set;
+
+@Component
+public class employeeValidation implements Validator {
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return EmployeeModel.class.equals(clazz);
+    }
+    @Override
+    public void validate(Object target, Errors errors) {
+        EmployeeModel employeeModel= (EmployeeModel) target;
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "AdminUserName");
+        if(employeeModel.getPassword()!=null && employeeModel.getPassword().toString().length()<4){
+            errors.rejectValue("password", "AdminPassword", "AdminPassword");
+
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "AdminPasswordNull");
+
+    }
+
+}
+
