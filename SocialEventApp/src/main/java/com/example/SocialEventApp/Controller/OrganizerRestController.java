@@ -1,5 +1,6 @@
 package com.example.SocialEventApp.Controller;
 
+import com.example.SocialEventApp.Entity.BookingEvent;
 import com.example.SocialEventApp.Model.EventOrganizerModel;
 import com.example.SocialEventApp.Model.EventsModel;
 import com.example.SocialEventApp.Model.LocationModel;
@@ -34,8 +35,9 @@ public class OrganizerRestController {
     }
     @PostMapping("/addEvent")
     public ResponseEntity<EventsModel> addOrganizer(@Valid @RequestBody EventsModel eventsModel){
+        System.out.println(eventsModel);
         EventsModel event=eventServices.addEvent(eventsModel);
-        System.out.println(event.getEventCategory());
+
         return new ResponseEntity<EventsModel>(event, HttpStatus.CREATED);
 
     }
@@ -63,5 +65,6 @@ public class OrganizerRestController {
     public String addLocationToEvents(@RequestParam("event") int eid,@RequestParam("location") int lid){
         return eventServices.addLocationToEvents(eid,lid);
     }
+
 
 }

@@ -74,4 +74,12 @@ public class BookingEvent {
     public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }

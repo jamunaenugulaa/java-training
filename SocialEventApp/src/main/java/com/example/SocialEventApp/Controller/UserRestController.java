@@ -1,8 +1,6 @@
 package com.example.SocialEventApp.Controller;
 
-import com.example.SocialEventApp.Entity.Events;
-import com.example.SocialEventApp.Entity.Location;
-import com.example.SocialEventApp.Entity.UsersTable;
+import com.example.SocialEventApp.Entity.*;
 
 import com.example.SocialEventApp.Model.*;
 import com.example.SocialEventApp.SecurityConfig.UsersTableServices;
@@ -62,18 +60,31 @@ public class UserRestController {
 
 
     @PostMapping("/bookingEvent")
-    public BookingEventModel bookingEvent(@RequestParam("event") int eid,@RequestParam("location") int lid,@Valid @RequestBody BookingEventModel booking){
+    public String bookingEvent(@RequestParam("event") int eid,@RequestParam("location") int lid,@RequestParam("customer") int cid,@Valid @RequestBody BookingEventModel booking){
         System.out.println(booking);
         Events event=eventServices.getEventById(eid);
         Location location=locationServices.getLocationById(lid);
+        Customer customer=customerServices.getCustomer(cid);
         if(event==null||location==null){
-            return null;
+            return "Choose Correct Location or Event";
+        }
+        if(customer==null){
+            return "Customer Not Found";
         }
         booking.setEvent(event);
         booking.setLocation(location);
-        return bookingServices.saveBooking(booking);
+        return bookingServices.saveBooking(booking,customer);
 
     }
+    @DeleteMapping("/deleteBookingEvent")
+    public void deleteBookingEvent(@RequestParam("bookingEvent") int id,@RequestParam("customer") int cid){
+        bookingServices.deleteBooking(id,cid);
+    }
 
+    @GetMapping("/GetBooking")
+    public List<BookingEventModel> BookingEvents(@RequestParam("customer") int cid){
+        System.out.println(cid);
+        return customerServices.getAllBookings(cid);
+    }
 
 }

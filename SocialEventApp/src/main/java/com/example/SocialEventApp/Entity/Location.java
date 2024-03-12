@@ -36,6 +36,7 @@ public class Location {
     @JsonIgnore
     @ManyToMany(mappedBy = "locationList",cascade = CascadeType.ALL)
     private List<Events> eventsList=new ArrayList<>();
+    @JsonIgnore
     @OneToMany(mappedBy = "location",cascade = CascadeType.ALL)
     private List<BookingEvent> bookingEvents=new ArrayList<>();
     public int getLocationId() {
@@ -139,5 +140,13 @@ public class Location {
 
     public void setAdvance(double advance) {
         this.advance = advance;
+    }
+
+    public List<BookingEvent> getBookingEvents() {
+        return bookingEvents;
+    }
+
+    public void setBookingEvents(List<BookingEvent> bookingEvents) {
+        this.bookingEvents = bookingEvents;
     }
 }

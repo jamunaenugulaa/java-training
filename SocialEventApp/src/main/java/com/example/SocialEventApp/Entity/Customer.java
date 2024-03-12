@@ -1,5 +1,6 @@
 package com.example.SocialEventApp.Entity;
 
+import com.example.SocialEventApp.Model.BookingEventModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -62,4 +63,19 @@ public class Customer {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<BookingEvent> getBookingEvents() {
+        return bookingEvents;
+    }
+
+    public void setBookingEvents(List<BookingEvent> bookingEvents) {
+        this.bookingEvents = bookingEvents;
+    }
 }
